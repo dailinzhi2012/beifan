@@ -1,0 +1,34 @@
+[project]
+name = "jangoProject"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    { name = "dailinzhi", email = "dailinzhi2012@163.com" },
+]
+dependencies = ["django>=5.1.4"]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = { text = "MIT" }
+
+
+[tool.pdm]
+distribution = false
+
+
+[tool.pdm.scripts]
+init = { composite = [
+    "makeM",
+    "M",
+    "createadmin",
+] }
+
+
+makeM = 'python manage.py makemigrations'
+
+M = 'python manage.py migrate'
+
+R = 'python manage.py runserver' # --noreload
+
+T = 'python manage.py test'
+
+createadmin = '''python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')"'''
